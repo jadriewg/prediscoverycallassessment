@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where should you focus first?</title>
+<meta name="description" content="A short self-assessment that shows where to focus before your discovery call.">
+<style>
+:root{
+  --bg:#fafaf8; --fg:#151515; --muted:#6c6c66; --line:#e3e2dc; --card:#ffffff;
+  --accent:#24473c; --accent-fg:#ffffff; --soft:#eef2ef;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#121413;--fg:#efeee8;--muted:#9a9a92;--line:#2a2c2a;--card:#181a19;--accent:#9fd0bb;--accent-fg:#0d1511;--soft:#1b211e}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:20px 20px 64px;min-height:100vh;display:flex;flex-direction:column}
+.view{display:flex;flex-direction:column;flex:1;animation:in .35s ease both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bar{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);height:32px}
+.xp b{color:var(--fg);font-variant-numeric:tabular-nums;font-weight:600}
+.rail{display:flex;gap:6px;margin:10px 0 0}
+.seg{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.seg i{display:block;height:100%;background:var(--accent)}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:36px 0}
+.eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-size:clamp(26px,5.2vw,36px);line-height:1.2;letter-spacing:-.02em;font-weight:600;margin:0 0 18px;outline:none}
+h2{font-size:15px;font-weight:600;margin:0 0 6px}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 16px;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:12px;font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}
+.opt:hover{border-color:var(--accent)}
+.opt:focus-visible,.btn:focus-visible,.ghost:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt .n{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--muted);flex:none}
+.opt.sel{border-color:var(--accent);background:var(--soft);transform:scale(.99)}
+.opt.sel .n{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);border:0;border-radius:999px;padding:13px 26px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .15s,transform .15s}
+.btn:hover{opacity:.9}
+.btn:active{transform:scale(.98)}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.ghost{background:none;border:0;color:var(--muted);font:inherit;cursor:pointer;padding:10px 0}
+.ghost:hover{color:var(--fg)}
+.row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.foot{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.facts{list-style:none;padding:0;margin:8px 0 28px;display:grid;gap:8px;color:var(--muted);font-size:15px}
+.facts li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:12px;vertical-align:middle}
+.check{width:56px;height:56px;border-radius:50%;border:1.5px solid var(--accent);display:grid;place-items:center;margin-bottom:22px}
+.check svg{width:26px;height:26px;stroke:var(--accent);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30;animation:draw .5s .15s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.scale5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.scale5 .opt{justify-content:center;padding:12px 0}
+.scale5 .opt .n{border:0;width:auto;height:auto;font-size:16px;color:inherit}
+.scale5 .opt.sel .n{background:none;color:inherit}
+.ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.q{margin-bottom:30px}
+textarea{width:100%;min-height:84px;resize:vertical;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);font:inherit;margin-top:6px}
+label.l{font-weight:600;font-size:15px;display:block}
+.total{font-size:56px;font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;margin:6px 0 8px}
+.total span{font-size:20px;color:var(--muted);font-weight:400;letter-spacing:0}
+.dom{margin:18px 0}
+.dom .top{display:flex;justify-content:space-between;font-size:15px;margin-bottom:6px}
+.dom .top span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.track{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--accent);border-radius:3px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.card{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:18px 20px;margin:14px 0}
+.card .tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.card h2{font-size:18px;margin-bottom:8px}
+.card p:last-child{margin-bottom:0}
+.sec{margin-top:36px}
+.refl p{white-space:pre-wrap}
+.small{font-size:13px;color:var(--muted)}
+.hint{display:none}
+@media (hover:hover){.hint{display:inline}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.check svg{stroke-dashoffset:0}}
+@media print{body{background:#fff;color:#000}.noprint{display:none!important}.card{break-inside:avoid}.track i{width:var(--w)!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<noscript><p style="padding:24px">This assessment needs JavaScript enabled.</p></noscript>
+<script>
+(function () {
+"use strict";
+
+/* ---------- Settings you can change ---------- */
+var CONFIG = {
+  brand: "",                                   // small name shown top-left, e.g. "Your Brand"
+  bookingUrl: "",                              // your booking link; leave empty to hide the button
+  bookingLabel: "Book your free discovery call"
+};
+var STORE = "pda-v1";
+
+/* LOGIC START */
+var SCALE = ["Strongly disagree", "Disagree", "Sometimes", "Agree", "Strongly agree"];
+var BAND_LABEL = { priority: "Priority focus", developing: "Developing", strength: "Strength" };
+
+var DOMAINS = [
+  { key: "direction", name: "Direction", tagline: "What you are performing toward",
+    items: [
+      "I can clearly describe what I want my work and life to look like in 12 months.",
+      "I know my top one or two priorities right now.",
+      "My daily effort matches what matters most to me.",
+      "I can say no to things that pull me away from my priorities."],
+    low: "Busy but unsure it is the right busy; effort spread thin; hard to say no.",
+    focus: "Define one 90-day outcome and the two or three things that serve it; pause the rest.",
+    ask: "If the next 90 days went well, what would be different?" },
+  { key: "awareness", name: "Awareness", tagline: "Whether you see your own patterns",
+    items: [
+      "I can name the situations that reliably knock me off my best.",
+      "I notice early signs (physical, emotional, behavioural) that I am under strain.",
+      "I understand my default reaction when things get tense.",
+      "I can describe how my patterns show up for the people around me."],
+    low: "Reacting first and wondering why later; others see patterns you do not.",
+    focus: "Name your top three triggers and your default reaction to each.",
+    ask: "The last time I reacted in a way I regretted, what happened just before?" },
+  { key: "regulation", name: "Regulation", tagline: "Staying steady and recovering under strain",
+    items: [
+      "When pressure rises, I stay steady enough to think clearly.",
+      "I recover well after a stressful day or a setback.",
+      "I protect my energy (sleep, breaks, boundaries) as part of how I perform.",
+      "Stress rarely changes how I treat people or make decisions."],
+    low: "Stress takes over your thinking; slow recovery; energy always low.",
+    focus: "Find one early-warning sign and one reset you can use in the moment; protect recovery time.",
+    ask: "What is the first sign I am past my limit?" },
+  { key: "choice", name: "Choice", tagline: "Responding on purpose, not by reflex",
+    items: [
+      "In difficult moments I pause and choose my response instead of reacting automatically.",
+      "I make important decisions without long delay or constant second-guessing.",
+      "I have a plan for how I will handle my recurring hard situations.",
+      "When I get feedback or criticism, I can use it without becoming defensive."],
+    low: "Automatic reactions; decisions delayed or second-guessed; no plan for repeat situations.",
+    focus: "Pick one recurring hard situation and decide your response in advance.",
+    ask: "Which situation keeps repeating, and what would I do if I had planned for it?" },
+  { key: "consistency", name: "Consistency", tagline: "Following through and keeping it up",
+    items: [
+      "I follow through on what I commit to myself.",
+      "When I try a new behaviour, I keep practising it past the first week or two.",
+      "I have routines or accountability that keep me on track.",
+      "After a slip, I get back on track quickly."],
+    low: "Strong starts that fade; good intentions without follow-through; no accountability.",
+    focus: "Shrink the practice to minutes a day and attach accountability.",
+    ask: "What did I start and drop, and what made it fall away?" }
+];
+
+var READY_CHOICES = [
+  { k: "A", t: "Clarity on what to focus on" },
+  { k: "B", t: "A plan for specific situations" },
+  { k: "C", t: "Practice and accountability" },
+  { k: "D", t: "Not sure yet" }
+];
+
+var PROMPTS = [
+  "Describe one situation from the last 30 days where you did not perform the way you wanted.",
+  "What would you want to be different in 90 days?",
+  "What have you already tried, and what happened?",
+  "What do you think is getting in the way?"
+];
+
+function sumDomain(a, k) { var s = 0; for (var j = 0; j < 4; j++) s += a[k * 4 + j]; return s; }
+function scoresOf(a) { return DOMAINS.map(function (d, k) { return sumDomain(a, k); }); }
+function totalOf(sc) { return sc.reduce(function (x, y) { return x + y; }, 0); }
+function bandOf(s) { return s <= 9 ? "priority" : s <= 14 ? "developing" : "strength"; }
+
+function readingOf(t) {
+  if (t <= 55) return { label: "Several gaps", text: "Coaching is likely to make a large difference." };
+  if (t <= 75) return { label: "Targeted gaps", text: "Coaching is likely to help if it stays focused on your top two priorities." };
+  return { label: "Strong foundations", text: "Coaching may not be needed right now. The call can test whether a specific goal needs support." };
+}
+
+function rankOf(sc) {
+  var order = [0, 1, 2, 3, 4];
+  var asc = order.slice().sort(function (x, y) { return sc[x] - sc[y] || x - y; });
+  var first = sc[0] <= 9 ? 0 : asc[0];
+  var second = asc.filter(function (k) { return k !== first; })[0];
+  var rest = order.filter(function (k) { return k !== first && k !== second; });
+  rest.sort(function (x, y) { return sc[y] - sc[x] || x - y; });
+  return { first: first, second: second, strength: rest[0] };
+}
+
+function readinessOf(r1, r2) {
+  if (r1 <= 2 || r2 <= 2) return { label: "Timing may need discussing", text: "Timing or capacity may be the real issue. Talk it through on the call before choosing a programme." };
+  if (r1 >= 4 && r2 >= 4) return { label: "Ready to start", text: "You have the intent and the time to practise between sessions." };
+  return { label: "Partly ready", text: "Use the call to agree what is realistic for the next three months." };
+}
+/* LOGIC END */
+
+/* ---------- State ---------- */
+function fresh() {
+  return { screen: "intro", i: 0, a: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+           r: { r1: null, r2: null, r3: null }, refl: ["", "", "", ""] };
+}
+function load() {
+  try {
+    var s = JSON.parse(localStorage.getItem(STORE));
+    if (s && Array.isArray(s.a) && s.a.length === 20 && s.r && Array.isArray(s.refl) && s.refl.length === 4 &&
+        typeof s.i === "number" && ["intro","q","stage","ready","reflect","results"].indexOf(s.screen) > -1) {
+      if (s.screen !== "intro" && s.screen !== "results") { s.at = s.screen; s.screen = "intro"; }
+      return s;
+    }
+  } catch (e) {}
+  return null;
+}
+function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+
+var app = document.getElementById("app");
+var state = load() || fresh();
+var shown = 0;
+var locked = false;
+var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+  });
+}
+
+function xp() {
+  var n = 0, k;
+  for (k = 0; k < 20; k++) if (state.a[k] !== null) n += 10;
+  for (k = 0; k < 5; k++) if (state.a.slice(k * 4, k * 4 + 4).every(function (v) { return v !== null; })) n += 20;
+  ["r1", "r2", "r3"].forEach(function (key) { if (state.r[key] !== null) n += 10; });
+  state.refl.forEach(function (t) { if (t.trim()) n += 10; });
+  return n;
+}
+
+/* ---------- Views ---------- */
+function barHtml(left) {
+  return '<div class="bar noprint"><span>' + (left || "") + '</span><span class="xp"><b data-xp>' + shown + '</b> XP</span></div>';
+}
+function railHtml(full) {
+  var stage = Math.floor(state.i / 4), out = "";
+  for (var s = 0; s < 5; s++) {
+    var pct = full ? 100 : s < stage ? 100 : s === stage ? (state.screen === "stage" ? 100 : (state.i % 4) / 4 * 100) : 0;
+    out += '<div class="seg"><i style="width:' + pct + '%"></i></div>';
+  }
+  return '<div class="rail noprint" aria-hidden="true">' + out + '</div>';
+}
+
+function introView() {
+  var resume = state.at;
+  var hasAny = state.a.some(function (v) { return v !== null; });
+  return '<div class="bar noprint"><span>' + esc(CONFIG.brand) + '</span><span></span></div>' +
+    '<section class="body">' +
+    '<p class="eyebrow">About 8 minutes</p>' +
+    '<h1 tabindex="-1">Where should you focus first?</h1>' +
+    '<p class="muted">Direction plays a big part in performance. This short assessment shows where to focus before your discovery call, so you arrive with a priority, not a blank page.</p>' +
+    '<ul class="facts"><li>5 stages, 20 statements</li><li>Your answers stay in your browser</li><li>You get a priority and one question to bring</li></ul>' +
+    '<div class="row">' +
+    (resume ? '<button class="btn" data-action="resume">Resume</button><button class="ghost" data-action="start">Start over</button>'
+            : '<button class="btn" data-action="start">' + (hasAny ? "Start over" : "Begin") + '</button>') +
+    '</div></section><div class="foot"></div>';
+}
+
+function qView() {
+  var i = state.i, k = Math.floor(i / 4), d = DOMAINS[k], cur = state.a[i];
+  var opts = SCALE.map(function (t, n) {
+    return '<button class="opt' + (cur === n + 1 ? " sel" : "") + '" data-action="answer" data-v="' + (n + 1) + '"><span class="n">' + (n + 1) + '</span>' + t + '</button>';
+  }).join("");
+  return barHtml((i + 1) + " / 20") + railHtml() +
+    '<section class="body"><p class="eyebrow">Stage ' + (k + 1) + ' of 5 · ' + d.name + '</p>' +
+    '<h1 tabindex="-1">' + d.items[i % 4] + '</h1>' +
+    '<div class="opts" role="group" aria-label="Your answer">' + opts + '</div></section>' +
+    '<div class="foot noprint"><button class="ghost" data-action="back">Back</button><span class="small hint">Press 1 to 5</span></div>';
+}
+
+function stageView() {
+  var k = Math.floor(state.i / 4), d = DOMAINS[k], nxt = DOMAINS[k + 1];
+  var next = nxt ? "Next: " + nxt.name + ". " + nxt.tagline + "." : "Next: a quick readiness check.";
+  return barHtml((state.i + 1) + " / 20") + railHtml() +
+    '<section class="body"><div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>' +
+    '<p class="eyebrow">Stage ' + (k + 1) + ' of 5 complete</p>' +
+    '<h1 tabindex="-1">' + d.name + ' done.</h1>' +
+    '<p class="muted">+20 XP. ' + next + '</p>' +
+    '<div><button class="btn" data-action="next">Continue</button></div></section><div class="foot"></div>';
+}
+
+function scale5(key, label) {
+  var cur = state.r[key], b = "";
+  for (var n = 1; n <= 5; n++) b += '<button class="opt' + (cur === n ? " sel" : "") + '" data-action="r" data-k="' + key + '" data-v="' + n + '"><span class="n">' + n + '</span></button>';
+  return '<div class="q"><label class="l">' + label + '</label><div class="scale5" data-group="' + key + '">' + b + '</div><div class="ends"><span>Strongly disagree</span><span>Strongly agree</span></div></div>';
+}
+
+function readyView() {
+  var cur = state.r.r3;
+  var choices = READY_CHOICES.map(function (c) {
+    return '<button class="opt' + (cur === c.k ? " sel" : "") + '" data-action="r" data-k="r3" data-v="' + c.k + '"><span class="n">' + c.k + '</span>' + c.t + '</button>';
+  }).join("");
+  var ok = state.r.r1 !== null && state.r.r2 !== null && state.r.r3 !== null;
+  return barHtml("Readiness") + railHtml(true) +
+    '<section class="body" style="justify-content:flex-start"><p class="eyebrow">Almost there</p><h1 tabindex="-1">A quick readiness check</h1>' +
+    scale5("r1", "I am ready to change something in how I work or respond within the next 3 months.") +
+    scale5("r2", "I can give 1 to 2 hours a week to practise between sessions.") +
+    '<div class="q"><label class="l">What do you most want from coaching?</label><div class="opts" data-group="r3" role="group">' + choices + '</div></div>' +
+    '<div><button class="btn" id="goReflect" data-action="toReflect"' + (ok ? "" : " disabled") + '>Continue</button></div></section>' +
+    '<div class="foot noprint"><button class="ghost" data-action="back">Back</button></div>';
+}
+
+function reflectView() {
+  var f = PROMPTS.map(function (p, n) {
+    return '<div class="q"><label class="l" for="t' + n + '">' + p + '</label><textarea id="t' + n + '" data-i="' + n + '">' + esc(state.refl[n]) + '</textarea></div>';
+  }).join("");
+  return barHtml("Optional") + railHtml(true) +
+    '<section class="body" style="justify-content:flex-start"><p class="eyebrow">Last step</p><h1 tabindex="-1">Bring something to the session</h1>' +
+    '<p class="muted">Short answers are fine. They make your discovery call sharper, and they stay on this device.</p>' + f +
+    '<div class="row"><button class="btn" data-action="results">See my results</button><button class="ghost" data-action="results">Skip</button></div></section>' +
+    '<div class="foot noprint"><button class="ghost" data-action="back">Back</button></div>';
+}
+
+function cardText(k, sc, isPriority) {
+  var d = DOMAINS[k], b = bandOf(sc[k]);
+  if (b === "priority") return "<p>A low score here often looks like this: " + d.low + "</p><p><b>Focus on:</b> " + d.focus + "</p>";
+  if (b === "developing") return "<p>The foundation is there, but it gives way under pressure. Sharpen it with practice.</p><p><b>Focus on:</b> " + d.focus + "</p>";
+  if (isPriority) return "<p>Even your lowest area is a reliable strength, so the work here is sharpening, not fixing.</p><p><b>Focus on:</b> " + d.focus + "</p>";
+  return "<p>Reliable here. Use this to support your other priorities.</p>";
+}
+
+function card(tag, k, sc, isPriority) {
+  return '<div class="card"><p class="tag">' + tag + '</p><h2>' + DOMAINS[k].name + ' · ' + sc[k] + ' / 20</h2>' + cardText(k, sc, isPriority) + '</div>';
+}
+
+function summaryText() {
+  var sc = scoresOf(state.a), t = totalOf(sc), rd = readingOf(t), rk = rankOf(sc), rs = readinessOf(state.r.r1, state.r.r2);
+  var ch = READY_CHOICES.filter(function (c) { return c.k === state.r.r3; })[0];
+  var L = ["Performance Direction Assessment", "", "Total: " + t + " / 100 (" + rd.label + ")", ""];
+  DOMAINS.forEach(function (d, k) { L.push(d.name + ": " + sc[k] + " / 20 (" + BAND_LABEL[bandOf(sc[k])] + ")"); });
+  L.push("", "Priority 1: " + DOMAINS[rk.first].name, "Priority 2: " + DOMAINS[rk.second].name, "Strength to build on: " + DOMAINS[rk.strength].name, "",
+         "Question to bring: " + DOMAINS[rk.first].ask, "", "Readiness: " + rs.label);
+  if (ch) L.push("Most wants from coaching: " + ch.t);
+  var any = state.refl.some(function (x) { return x.trim(); });
+  if (any) { L.push("", "My notes for the session:"); PROMPTS.forEach(function (p, n) { if (state.refl[n].trim()) L.push("- " + p, "  " + state.refl[n].trim()); }); }
+  return L.join("\n");
+}
+
+function resultsView() {
+  var sc = scoresOf(state.a), t = totalOf(sc), rd = readingOf(t), rk = rankOf(sc), rs = readinessOf(state.r.r1, state.r.r2);
+  var ch = READY_CHOICES.filter(function (c) { return c.k === state.r.r3; })[0];
+  var bars = DOMAINS.map(function (d, k) {
+    var w = Math.round(sc[k] / 20 * 100);
+    return '<div class="dom"><div class="top"><span>' + d.name + '</span><span>' + sc[k] + ' / 20 · ' + BAND_LABEL[bandOf(sc[k])] + '</span></div>' +
+           '<div class="track"><i data-w="' + w + '" style="--w:' + w + '%"></i></div></div>';
+  }).join("");
+  var notes = PROMPTS.map(function (p, n) {
+    return state.refl[n].trim() ? '<h2>' + p + '</h2><p>' + esc(state.refl[n].trim()) + '</p>' : "";
+  }).join("");
+  var cta = CONFIG.bookingUrl ? '<a class="btn" href="' + esc(CONFIG.bookingUrl) + '" target="_blank" rel="noopener">' + esc(CONFIG.bookingLabel) + '</a>' : "";
+  return '<div class="bar"><span>' + esc(CONFIG.brand) + '</span><span class="xp"><b data-xp>' + shown + '</b> XP</span></div>' +
+    '<section class="sec" style="margin-top:20px">' +
+    '<p class="eyebrow">Your result</p>' +
+    '<h1 tabindex="-1">Your next level: ' + DOMAINS[rk.first].name + '</h1>' +
+    '<div class="total">' + t + '<span> / 100</span></div>' +
+    '<p class="muted"><b>' + rd.label + '.</b> ' + rd.text + '</p>' +
+    '<div class="sec">' + bars + '</div>' +
+    '<div class="sec">' + card("Priority 1", rk.first, sc, true) + card("Priority 2", rk.second, sc, true) + card("Strength to build on", rk.strength, sc, false) + '</div>' +
+    '<div class="card"><p class="tag">Bring this to the discovery call</p><h2>' + DOMAINS[rk.first].ask + '</h2>' +
+    '<p class="small">Readiness: ' + rs.label + '. ' + rs.text + (ch ? ' You said you most want: ' + ch.t.toLowerCase() + '.' : '') + '</p></div>' +
+    (notes ? '<div class="sec refl"><p class="eyebrow">Your notes</p>' + notes + '</div>' : '') +
+    '<div class="row noprint sec">' + cta + '<button class="ghost" data-action="copy">Copy my result</button><button class="ghost" data-action="print">Save as PDF</button><button class="ghost" data-action="retake">Retake</button></div>' +
+    '<p class="small sec">This is a self-reflection tool, not a clinical or psychometric test. If you are struggling with persistent low mood, anxiety or burnout, please speak with a qualified health professional.</p>' +
+    '</section>';
+}
+
+var views = { intro: introView, q: qView, stage: stageView, ready: readyView, reflect: reflectView, results: resultsView };
+
+/* ---------- Rendering ---------- */
+function tweenXp() {
+  var els = app.querySelectorAll("[data-xp]"), to = xp();
+  if (!els.length) { shown = to; return; }
+  if (reduced || shown === to) { for (var a = 0; a < els.length; a++) els[a].textContent = to; shown = to; return; }
+  var from = shown, start = performance.now(), dur = 500;
+  shown = to;
+  (function step(now) {
+    var p = Math.min(1, (now - start) / dur), v = Math.round(from + (to - from) * p);
+    for (var b = 0; b < els.length; b++) els[b].textContent = v;
+    if (p < 1) requestAnimationFrame(step);
+  })(start);
+}
+
+function render() {
+  app.innerHTML = '<div class="view">' + views[state.screen]() + '</div>';
+  window.scrollTo(0, 0);
+  var h = app.querySelector("h1");
+  if (h) h.focus({ preventScroll: true });
+  tweenXp();
+  var bars = app.querySelectorAll("[data-w]");
+  if (bars.length) requestAnimationFrame(function () { requestAnimationFrame(function () {
+    for (var n = 0; n < bars.length; n++) bars[n].style.width = bars[n].getAttribute("data-w") + "%";
+  }); });
+}
+
+function go(screen) { state.screen = screen; save(); render(); }
+
+/* ---------- Actions ---------- */
+function copyText(text, done) {
+  function fallback() {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+  else fallback();
+}
+
+var actions = {
+  start: function () { state = fresh(); shown = 0; state.screen = "q"; save(); render(); },
+  resume: function () { state.screen = state.at || "q"; delete state.at; save(); render(); },
+  answer: function (b) {
+    if (locked) return;
+    locked = true;
+    state.a[state.i] = parseInt(b.getAttribute("data-v"), 10);
+    save();
+    var sibs = b.parentNode.children;
+    for (var n = 0; n < sibs.length; n++) sibs[n].classList.remove("sel");
+    b.classList.add("sel");
+    setTimeout(function () {
+      locked = false;
+      if (state.i % 4 === 3) state.screen = "stage"; else state.i++;
+      save(); render();
+    }, reduced ? 0 : 220);
+  },
+  next: function () {
+    if (state.i === 19) state.screen = "ready"; else { state.i++; state.screen = "q"; }
+    save(); render();
+  },
+  back: function () {
+    if (state.screen === "q") {
+      if (state.i > 0) state.i--; else { state.at = "q"; state.screen = "intro"; }
+    } else if (state.screen === "ready") { state.screen = "q"; state.i = 19; }
+    else if (state.screen === "reflect") state.screen = "ready";
+    save(); render();
+  },
+  r: function (b) {
+    var key = b.getAttribute("data-k"), v = b.getAttribute("data-v");
+    state.r[key] = key === "r3" ? v : parseInt(v, 10);
+    save();
+    var sibs = b.parentNode.children;
+    for (var n = 0; n < sibs.length; n++) sibs[n].classList.remove("sel");
+    b.classList.add("sel");
+    var go2 = document.getElementById("goReflect");
+    if (go2) go2.disabled = !(state.r.r1 !== null && state.r.r2 !== null && state.r.r3 !== null);
+    tweenXp();
+  },
+  toReflect: function () { go("reflect"); },
+  results: function () { go("results"); },
+  copy: function (b) { copyText(summaryText(), function () { b.textContent = "Copied"; }); },
+  print: function () { window.print(); },
+  retake: function () { state = fresh(); shown = 0; save(); render(); }
+};
+
+app.addEventListener("click", function (e) {
+  var b = e.target.closest("[data-action]");
+  if (b && actions[b.getAttribute("data-action")]) actions[b.getAttribute("data-action")](b);
+});
+app.addEventListener("input", function (e) {
+  var t = e.target;
+  if (t.tagName === "TEXTAREA") { state.refl[parseInt(t.getAttribute("data-i"), 10)] = t.value; save(); tweenXp(); }
+});
+document.addEventListener("keydown", function (e) {
+  if (state.screen !== "q" || e.metaKey || e.ctrlKey || e.altKey) return;
+  var n = parseInt(e.key, 10);
+  if (n >= 1 && n <= 5) { var b = app.querySelector('.opt[data-v="' + n + '"]'); if (b) b.click(); }
+});
+
+shown = xp();
+render();
+})();
+</script>
+</body>
+</html>
