@@ -20,7 +20,6 @@ main{max-width:640px;margin:0 auto;padding:20px 20px 64px;min-height:100vh;displ
 .view{display:flex;flex-direction:column;flex:1;animation:in .35s ease both}
 @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .bar{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);height:32px}
-.xp b{color:var(--fg);font-variant-numeric:tabular-nums;font-weight:600}
 .rail{display:flex;gap:6px;margin:10px 0 0}
 .seg{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
 .seg i{display:block;height:100%;background:var(--accent)}
@@ -207,7 +206,6 @@ function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } ca
 
 var app = document.getElementById("app");
 var state = load() || fresh();
-var shown = 0;
 var locked = false;
 var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -217,18 +215,9 @@ function esc(s) {
   });
 }
 
-function xp() {
-  var n = 0, k;
-  for (k = 0; k < 20; k++) if (state.a[k] !== null) n += 10;
-  for (k = 0; k < 5; k++) if (state.a.slice(k * 4, k * 4 + 4).every(function (v) { return v !== null; })) n += 20;
-  ["r1", "r2", "r3"].forEach(function (key) { if (state.r[key] !== null) n += 10; });
-  state.refl.forEach(function (t) { if (t.trim()) n += 10; });
-  return n;
-}
-
 /* ---------- Views ---------- */
 function barHtml(left) {
-  return '<div class="bar noprint"><span>' + (left || "") + '</span><span class="xp"><b data-xp>' + shown + '</b> XP</span></div>';
+  return '<div class="bar noprint"><span>' + (left || "") + '</span></div>';
 }
 function railHtml(full) {
   var stage = Math.floor(state.i / 4), out = "";
@@ -273,7 +262,7 @@ function stageView() {
     '<section class="body"><div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>' +
     '<p class="eyebrow">Stage ' + (k + 1) + ' of 5 complete</p>' +
     '<h1 tabindex="-1">' + d.name + ' done.</h1>' +
-    '<p class="muted">+20 XP. ' + next + '</p>' +
+    '<p class="muted">' + next + '</p>' +
     '<div><button class="btn" data-action="next">Continue</button></div></section><div class="foot"></div>';
 }
 
@@ -346,7 +335,7 @@ function resultsView() {
     return state.refl[n].trim() ? '<h2>' + p + '</h2><p>' + esc(state.refl[n].trim()) + '</p>' : "";
   }).join("");
   var cta = CONFIG.bookingUrl ? '<a class="btn" href="' + esc(CONFIG.bookingUrl) + '" target="_blank" rel="noopener">' + esc(CONFIG.bookingLabel) + '</a>' : "";
-  return '<div class="bar"><span>' + esc(CONFIG.brand) + '</span><span class="xp"><b data-xp>' + shown + '</b> XP</span></div>' +
+  return '<div class="bar"><span>' + esc(CONFIG.brand) + '</span></div>' +
     '<section class="sec" style="margin-top:20px">' +
     '<p class="eyebrow">Your result</p>' +
     '<h1 tabindex="-1">Your next level: ' + DOMAINS[rk.first].name + '</h1>' +
@@ -365,25 +354,11 @@ function resultsView() {
 var views = { intro: introView, q: qView, stage: stageView, ready: readyView, reflect: reflectView, results: resultsView };
 
 /* ---------- Rendering ---------- */
-function tweenXp() {
-  var els = app.querySelectorAll("[data-xp]"), to = xp();
-  if (!els.length) { shown = to; return; }
-  if (reduced || shown === to) { for (var a = 0; a < els.length; a++) els[a].textContent = to; shown = to; return; }
-  var from = shown, start = performance.now(), dur = 500;
-  shown = to;
-  (function step(now) {
-    var p = Math.min(1, (now - start) / dur), v = Math.round(from + (to - from) * p);
-    for (var b = 0; b < els.length; b++) els[b].textContent = v;
-    if (p < 1) requestAnimationFrame(step);
-  })(start);
-}
-
 function render() {
   app.innerHTML = '<div class="view">' + views[state.screen]() + '</div>';
   window.scrollTo(0, 0);
   var h = app.querySelector("h1");
   if (h) h.focus({ preventScroll: true });
-  tweenXp();
   var bars = app.querySelectorAll("[data-w]");
   if (bars.length) requestAnimationFrame(function () { requestAnimationFrame(function () {
     for (var n = 0; n < bars.length; n++) bars[n].style.width = bars[n].getAttribute("data-w") + "%";
@@ -406,7 +381,7 @@ function copyText(text, done) {
 }
 
 var actions = {
-  start: function () { state = fresh(); shown = 0; state.screen = "q"; save(); render(); },
+  start: function () { state = fresh(); state.screen = "q"; save(); render(); },
   resume: function () { state.screen = state.at || "q"; delete state.at; save(); render(); },
   answer: function (b) {
     if (locked) return;
@@ -442,13 +417,12 @@ var actions = {
     b.classList.add("sel");
     var go2 = document.getElementById("goReflect");
     if (go2) go2.disabled = !(state.r.r1 !== null && state.r.r2 !== null && state.r.r3 !== null);
-    tweenXp();
   },
   toReflect: function () { go("reflect"); },
   results: function () { go("results"); },
   copy: function (b) { copyText(summaryText(), function () { b.textContent = "Copied"; }); },
   print: function () { window.print(); },
-  retake: function () { state = fresh(); shown = 0; save(); render(); }
+  retake: function () { state = fresh(); save(); render(); }
 };
 
 app.addEventListener("click", function (e) {
@@ -457,7 +431,7 @@ app.addEventListener("click", function (e) {
 });
 app.addEventListener("input", function (e) {
   var t = e.target;
-  if (t.tagName === "TEXTAREA") { state.refl[parseInt(t.getAttribute("data-i"), 10)] = t.value; save(); tweenXp(); }
+  if (t.tagName === "TEXTAREA") { state.refl[parseInt(t.getAttribute("data-i"), 10)] = t.value; save(); }
 });
 document.addEventListener("keydown", function (e) {
   if (state.screen !== "q" || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -465,7 +439,6 @@ document.addEventListener("keydown", function (e) {
   if (n >= 1 && n <= 5) { var b = app.querySelector('.opt[data-v="' + n + '"]'); if (b) b.click(); }
 });
 
-shown = xp();
 render();
 })();
 </script>

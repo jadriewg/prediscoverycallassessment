@@ -5,7 +5,7 @@ A minimalist, gamified self-assessment that shows a person where to focus before
 **What it does**
 
 - 5 stages (Direction, Awareness, Regulation, Choice, Consistency), 4 statements each
-- XP counter, stage rail, and a short "stage complete" moment between stages
+- Stage rail and a short "stage complete" moment between stages
 - Readiness check and four optional reflection prompts
 - Results: total score, domain bars, two priorities, a strength, and one question to bring to the call
 - Copy result and Save as PDF (print) buttons
